@@ -1,0 +1,4 @@
+# general things to ignore
+.DS_Store
+*.png
+*.jpg

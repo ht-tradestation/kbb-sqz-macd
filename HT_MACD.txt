@@ -1,0 +1,28 @@
+Inputs:
+	Price(numericseries),
+	FastLength(numericsimple),
+	SlowLength(numericsimple),
+	int macdAvgType(numericsimple); {sets the moving average type}
+
+Variables:
+	double avg(0.0);
+
+Switch (macdAvgType) Begin
+	Case 0:
+	// simple moving average
+		avg = AverageFC(Price, FastLength) - AverageFC( Price, SlowLength);
+	Case 1:
+	// exponential moving average
+		avg = XAverage(Price, FastLength) - XAverage( Price, SlowLength);
+	Case 2:
+	// wilders moving average
+		avg = WAverage(Price, FastLength) - WAverage( Price, SlowLength);
+	Case 3:
+	// hull moving average
+		avg = HMA(Price, FastLength) - HMA( Price, SlowLength);
+	Default:
+	// simple moving average
+		avg = AverageFC(Price, FastLength) - AverageFC( Price, SlowLength);
+End;
+
+HT_MACD = avg;

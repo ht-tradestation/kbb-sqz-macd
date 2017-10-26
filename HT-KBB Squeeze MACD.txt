@@ -1,0 +1,150 @@
+{ Search Tag: HT-KBB Squeeze MACD }
+
+inputs:
+	//---------- Keltner Inputs
+	kPrice(Close) [DisplayName = "Keltner Price", ToolTip = ""],
+	kLength(20) [DisplayName = "Keltner Length", ToolTip = ""],
+	numATRs(1.5) [DisplayName = "ATR Multiplier", ToolTip = ""],
+	//---------- Bollinger Band Inputs
+	double bbPrice(Close) [DisplayName = "Bollinger BandPrice", ToolTip = ""],
+	int bbLength(20) [DisplayName = "Length", ToolTip = ""],
+	double numDevsUp(2) [DisplayName = "Number Std Dev Up", ToolTip = ""],
+	double numDevsDown(2) [DisplayName = "Number Std Dev Down", ToolTip = ""],
+	//---------- MACD Inputs
+	double fastLength(12) [DisplayName = "Fast Length", ToolTip = ""],
+	double slowLength(26) [DisplayName = "Slow Length", ToolTip = ""],
+	double macdLength(9) [DisplayName = "MACD Length", ToolTip = ""],
+	int macdAvgType(1) [DisplayName = "MACD Avg Type (0,1,2,3)", ToolTip = ""],
+	types(null) [DisplayName = "0=simple;1=exp;2=weighted;3=hull", ToolTip = ""],
+	//---------- Alert Inputs
+	bool alertIfCrossUp(False) [DisplayName = "Alert if Cross Up", ToolTip = ""],
+	bool alertIfCrossDown(False) [DisplayName = "Alert if Cross Down", ToolTip = ""],
+	bool alertIfUptrendEnd(False) [DisplayName = "Alert if Uptrend Ends", ToolTip = ""],
+	bool alertIfDowntrendEnd(False) [DisplayName = "Alert if Downtrend Ends", ToolTip = ""],
+    bool alertIfKbbFires(True) [DisplayName = "Alert if KBB Fires", ToolTip = ""],
+	//---------- Color Inputs
+	int posUpColor(Cyan) [DisplayName = "Color MACD Up > 0", ToolTip = ""],
+	int posDownColor(Blue) [DisplayName = "Color MACD Down > 0", ToolTip = ""],
+    int negUpColor(Yellow) [DisplayName = "Color MACD Up < 0", ToolTip = ""],
+	int negDownColor(Red) [DisplayName = "Color MACD Down < 0", ToolTip = ""],
+    int kbbTightColor(Red) [DisplayName = "Color KBB Tight", ToolTip = ""],
+    int kbbWideColor(Green) [DisplayName = "Color KBB Wide", ToolTip = ""];
+
+variables:
+	double macdValue(0.0),
+	double macdAvg(0.0),
+	double diff(0.0),
+	double diffColor(0.0),
+	double kbbColor(0.0),
+	int firedCounter(0),
+	double kAvg(0.0),
+	double kShift(0.0),
+	double kLowerBand(0.0),
+	double kUpperBand(0.0),
+	double kWidth(0.0),
+	double bbAvg(0.0),
+	double stdDev(0.0),
+	double bbLowerBand(0.0),
+	double bbUpperBand(0.0),
+	double bbWidth(0.0),
+	bool isChart(False);
+
+Once Begin
+	isChart = GetAppInfo( aiApplicationType ) = cChart;
+End;
+
+//---------- Keltner Section
+kAvg = Average(kPrice, kLength);
+kShift = numATRs * AvgTrueRange(kLength);
+kUpperBand = kAvg + kShift;
+kLowerBand = kAvg - kShift;
+kWidth = kUpperBand - kLowerBand;
+
+//---------- Bollinger Band Section
+bbAvg = XAverage( bbPrice, bbLength ) ;
+stdDev = StandardDev( bbPrice, bbLength, 1 ) ;
+bbUpperBand = bbAvg + numDevsUp * stdDev ;
+bbLowerBand = bbAvg - numDevsDown * stdDev ;
+bbWidth = bbUpperBand - bbLowerBand;
+
+//---------- KBB Section
+kbbColor = IFF( (bbWidth / kWidth) < 1, Red, Green);
+
+If ((bbWidth / kWidth) >= 1 and (bbWidth[1] / kWidth[1]) < 1) Then Begin
+	firedCounter = 1;
+End
+Else Begin
+	If ((bbWidth / kWidth) >= 1) Then Begin
+		firedCounter += 1;
+	End
+	Else Begin
+		firedCounter = 0;
+	End;
+End;
+
+//---------- MACD Section
+macdValue = HT_MACD(Close, fastLength, slowLength, macdAvgType);
+Switch (macdAvgType) Begin
+	Case 0:
+		macdAvg = AverageFC(macdValue, macdLength);
+	Case 1:
+		macdAvg = XAverage(macdValue, macdLength);
+	Case 2:
+		macdAvg = WAverage(macdValue, macdLength);
+	Case 3:
+		macdAvg = HMA(macdValue, macdLength);
+	Default:
+		macdAvg = AverageFC(macdValue, macdLength);
+End;
+
+diff = (macdValue - macdAvg) * 3;
+diffColor = IFF(diff > 0, IFF(diff > diff[1], posUpColor, posDownColor), IFF(diff < diff[1], negDownColor, negUpColor));
+
+//---------- Plots
+// 4
+Plot4(diff, !("MACD Hist"), IFF(diffColor = posUpColor, Black, IFF(diffColor = negUpColor, Black, White)));
+
+Plot2(macdValue, !("MACD Value"));//2
+Plot3(macdAvg, !("MACD Average"));//3
+// check if we are in a chart
+If (isChart) Then Begin
+	// if in a chart, set plots to display on chart
+	Plot1(0, !("KBB"), kbbColor);//1
+	SetPlotColor(4, diffColor);//4
+	SetPlotColor(2, Yellow);//2
+	setPlotColor(3, Cyan);//3
+End
+
+Else Begin
+	// otherwise, set plots to display on radar screen
+	Plot1(firedCounter, !("KBB"), IFF((bbWidth / kWidth) < 1, White, Black));//1
+	SetPlotBGColor(4, diffColor); //4
+	SetPlotBGColor(1, kbbColor);//1
+	SetPlotColor(2, Black);//2
+	setPlotColor(3, Black);//3
+End;
+
+
+//---------- Alerts
+If (AlertEnabled) Then Begin
+	If (diff crosses over 0) Then Begin
+		If (alertIfCrossUp) Then
+			Alert(!("MACD Hist crossed over 0."));
+	End
+	Else If (diff crosses under 0) Then Begin
+		If (alertIfCrossDown) Then
+			Alert(!("MACD Hist crossed under 0."));
+	End;
+	If (diff > 0 And diff < diff[1] And diff[1] > diff[2]) Then Begin
+		If (alertIfUptrendEnd) Then
+			Alert(!("MACD Uptrend Has Ended"));
+	End
+	Else If (diff < 0 And diff > diff[1] And diff[1] < diff[2]) Then Begin
+		If (alertIfDowntrendEnd) Then
+			Alert(!("MACD Downtrend Has Ended"));
+	End;
+	If (firedCounter = 1) Then Begin
+		If (alertIfKbbFires) Then
+			Alert(!("KBB Squeeze Has Fired"));
+	End;
+End;
