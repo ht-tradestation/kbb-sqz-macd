@@ -23,14 +23,14 @@ Source code is provided in the form of the following a text files:
 
 **Source code for the analysis technique**
 ```
-HT-KBB Squeeze MACD.txt
+HT_KBB_Squeeze_MACD.txt
 ```
 **Source code for custom function (required)**
 ```
 HT_MACD.txt
 ```
 Step 1: Open the Development Environment and create a new custom function named `HT_MACD`. Paste the contents of `HT_MACD.txt` into this new custom function. Verify the function before proceeding to step 2.
-Step 2:  Create a new custom indicator named `HT-KBB Squeeze MACD`. Paste the contents of `HT-KBB Squeeze MACD.txt` into this new indicator.  Click the verify button from the toolbar and check for errors. If no errors then you are ready to add this indicator to your Charts and/or RadarScreen.
+Step 2:  Create a new custom indicator named `HT-KBB Squeeze MACD`. Paste the contents of `HT_KBB_Squeeze_MACD.txt` into this new indicator.  Click the verify button from the toolbar and check for errors. If no errors then you are ready to add this indicator to your Charts and/or RadarScreen.
 If errors prevent the code from verifying, proceed to installation method /#2.
 
 Installation Method #2:
