@@ -1,4 +1,4 @@
-# "KBB (Keltner / Bolling Band) Squeeze MACD": Chart Analysis, RadarScreen & Alerts
+# "KBB (Keltner / Bollinger Band) Squeeze MACD": Chart Analysis, RadarScreen & Alerts
 
 Based on the Keltner Channel / Bollinger Band squeeze, using MACD histogram for trend.
 ### Chart Analysis
