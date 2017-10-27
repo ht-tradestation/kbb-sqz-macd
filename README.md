@@ -50,9 +50,7 @@ RadarScreen may require a subscription. **Charges May Apply**
 
 ### Detailed video demo showing installation and settings
 
-```
-embedded video here
-````
+[![Demo Video](https://www.hahn-tech.com/wp-content/uploads/2017/10/kbb-sqz-macd-promo-sml.jpg)](https://www.youtube.com/watch?v=https://youtu.be/C8Eaz2cLmKY)
 
 ## Contributing
 
