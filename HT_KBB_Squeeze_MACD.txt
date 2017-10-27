@@ -101,27 +101,26 @@ diff = (macdValue - macdAvg) * 3;
 diffColor = IFF(diff > 0, IFF(diff > diff[1], posUpColor, posDownColor), IFF(diff < diff[1], negDownColor, negUpColor));
 
 //---------- Plots
-// 4
 Plot4(diff, !("MACD Hist"), IFF(diffColor = posUpColor, Black, IFF(diffColor = negUpColor, Black, White)));
+Plot2(macdValue, !("MACD Value"));
+Plot3(macdAvg, !("MACD Average"));
 
-Plot2(macdValue, !("MACD Value"));//2
-Plot3(macdAvg, !("MACD Average"));//3
 // check if we are in a chart
 If (isChart) Then Begin
 	// if in a chart, set plots to display on chart
-	Plot1(0, !("KBB"), kbbColor);//1
-	SetPlotColor(4, diffColor);//4
-	SetPlotColor(2, Yellow);//2
-	setPlotColor(3, Cyan);//3
+	Plot1(0, !("KBB"), kbbColor);
+	SetPlotColor(4, diffColor);
+	SetPlotColor(2, Yellow);
+	setPlotColor(3, Cyan);
 End
 
 Else Begin
 	// otherwise, set plots to display on radar screen
-	Plot1(firedCounter, !("KBB"), IFF((bbWidth / kWidth) < 1, White, Black));//1
-	SetPlotBGColor(4, diffColor); //4
-	SetPlotBGColor(1, kbbColor);//1
-	SetPlotColor(2, Black);//2
-	setPlotColor(3, Black);//3
+	Plot1(firedCounter, !("KBB"), IFF((bbWidth / kWidth) < 1, White, Black));
+	SetPlotBGColor(4, diffColor);
+	SetPlotBGColor(1, kbbColor);
+	SetPlotColor(2, Black);
+	setPlotColor(3, Black);
 End;
 
 
