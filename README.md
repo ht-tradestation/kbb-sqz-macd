@@ -1,4 +1,6 @@
-# "KBB (Keltner / Bollinger Band) Squeeze MACD": Chart Analysis, RadarScreen & Alerts
+#KBB (Keltner / Bollinger Band) Squeeze MACD
+
+##Chart Analysis, RadarScreen & Alerts—
 
 Based on the Keltner Channel / Bollinger Band squeeze, using MACD histogram for trend.
 ### Chart Analysis
@@ -14,10 +16,17 @@ Are included for both the Chart Analysis mode as well as the RadarScreen mode. A
 1. Histogram changing trend direction
 
 ## Getting Started
+####Installation Method #1:
 
-Installation Method #1 (advanced users):
+The EasyLangauge file included:
+```
+HT_KBB_SQUEEZE_MACD.ELD
+```
+1. Simply download the EasyLanguage file and save to your hard drive. Go to an open chart and right-click, select 'Insert analysis technique'. Click the 'Import' button located below the list of included analysis techniques. Select 'Using Import/Export Wizard' from the Import menu. Browse to the location you saved the EasyLanguage file and select it. Click next through the rest of the process until complete.
 
-**!!!IT IS HIGHLY RECOMMENDED THAT YOU FOLLOW INSTALL METHOD #2**
+####Installation Method #2 (advanced users):
+
+**!!!IT IS HIGHLY RECOMMENDED THAT YOU FOLLOW INSTALL METHOD #1**
 
 Source code is provided in the form of the following a text files:
 
@@ -29,24 +38,17 @@ HT_KBB_Squeeze_MACD.txt
 ```
 HT_MACD.txt
 ```
-Step 1: Open the Development Environment and create a new custom function named `HT_MACD`. Paste the contents of `HT_MACD.txt` into this new custom function. Verify the function before proceeding to step 2.
-Step 2:  Create a new custom indicator named `HT-KBB Squeeze MACD`. Paste the contents of `HT_KBB_Squeeze_MACD.txt` into this new indicator.  Click the verify button from the toolbar and check for errors. If no errors then you are ready to add this indicator to your Charts and/or RadarScreen.
-If errors prevent the code from verifying, proceed to installation method /#2.
-
-Installation Method #2:
-The EasyLangauge file included:
-```
-HT_KBB_SQUEEZE_MACD.ELD
-```
-Simply download the EasyLanguage file and save to your hard drive. Go to an open chart and right-click, select 'Insert analysis technique'. Click the 'Import' button located below the list of included analysis techniques. Select 'Using Import/Export Wizard' from the Import menu. Browse to the location you saved the EasyLanguage file and select it. Click next through the rest of the process until complete.
+1. Open the Development Environment and create a new custom function named HT_MACD. Paste the contents of `HT_MACD.txt` into this new custom function. Verify the function before proceeding to step 2.
+1. Create a new custom indicator named HT-KBB Squeeze MACD. Paste the contents of `HT_KBB_Squeeze_MACD.txt` into this new indicator.  Click the verify button from the toolbar and check for errors. If no errors then you are ready to add this indicator to your Charts and/or RadarScreen.
+1. If errors prevent the code from verifying, proceed to installation method #1.
 
 ### Prerequisites
 
-Requires you to install the [TradeStation platform](https://www.tradestation.com/) ###Charges May Apply
+####*Charges May Apply
 
-```
-RadarScreen may require a subscription. **Charges May Apply**
-```
+*Requires you to install the [TradeStation platform](https://www.tradestation.com/)
+
+*RadarScreen (may require a subscription)
 
 ### Detailed video demo showing installation and settings
 
