@@ -1,6 +1,6 @@
-#KBB (Keltner / Bollinger Band) Squeeze MACD
+# KBB (Keltner / Bollinger Band) Squeeze MACD
 
-##Chart Analysis, RadarScreen & Alerts—
+## Chart Analysis, RadarScreen & Alerts—
 
 Based on the Keltner Channel / Bollinger Band squeeze, using MACD histogram for trend.
 ### Chart Analysis
@@ -16,7 +16,7 @@ Are included for both the Chart Analysis mode as well as the RadarScreen mode. A
 1. Histogram changing trend direction
 
 ## Getting Started
-####Installation Method #1:
+#### Installation Method #1:
 
 The EasyLangauge file included:
 ```
@@ -24,7 +24,7 @@ HT_KBB_SQUEEZE_MACD.ELD
 ```
 1. Simply download the EasyLanguage file and save to your hard drive. Go to an open chart and right-click, select 'Insert analysis technique'. Click the 'Import' button located below the list of included analysis techniques. Select 'Using Import/Export Wizard' from the Import menu. Browse to the location you saved the EasyLanguage file and select it. Click next through the rest of the process until complete.
 
-####Installation Method #2 (advanced users):
+#### Installation Method #2 (advanced users):
 
 **!!!IT IS HIGHLY RECOMMENDED THAT YOU FOLLOW INSTALL METHOD #1**
 
@@ -44,7 +44,7 @@ HT_MACD.txt
 
 ### Prerequisites
 
-####*Charges May Apply
+#### *Charges May Apply
 
 *Requires you to install the [TradeStation platform](https://www.tradestation.com/)
 
