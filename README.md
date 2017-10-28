@@ -52,7 +52,7 @@ HT_MACD.txt
 
 ### Detailed video demo showing installation and settings
 
-[![Demo Video](https://www.hahn-tech.com/wp-content/uploads/2017/10/kbb-sqz-macd-promo-sml.jpg)](https://www.youtube.com/watch?v=https://youtu.be/C8Eaz2cLmKY)
+[![Demo Video](https://www.hahn-tech.com/wp-content/uploads/2017/10/kbb-sqz-macd-promo-sml.jpg)](https://www.youtube.com/watch?v=C8Eaz2cLmKY)
 
 ## Contributing
 
