@@ -47,7 +47,8 @@ variables:
 	double bbLowerBand(0.0),
 	double bbUpperBand(0.0),
 	double bbWidth(0.0),
-	bool isChart(False);
+	bool isChart(False),
+	bool isSqueeze(False);
 
 Once Begin
 	isChart = GetAppInfo( aiApplicationType ) = cChart;
@@ -68,13 +69,14 @@ bbLowerBand = bbAvg - numDevsDown * stdDev ;
 bbWidth = bbUpperBand - bbLowerBand;
 
 //---------- KBB Section
-kbbColor = IFF( (bbWidth / kWidth) < 1, Red, Green);
+isSqueeze = IFFLogic(kWidth > 0, (bbWidth / kWidth) < 1, False);
+kbbColor = IFF(isSqueeze, Red, Green);
 
-If ((bbWidth / kWidth) >= 1 and (bbWidth[1] / kWidth[1]) < 1) Then Begin
+If (isSqueeze = False And isSqueeze[1]) Then Begin
 	firedCounter = 1;
 End
 Else Begin
-	If ((bbWidth / kWidth) >= 1) Then Begin
+	If (isSqueeze = False) Then Begin
 		firedCounter += 1;
 	End
 	Else Begin
@@ -116,7 +118,7 @@ End
 
 Else Begin
 	// otherwise, set plots to display on radar screen
-	Plot1(firedCounter, !("KBB"), IFF((bbWidth / kWidth) < 1, White, Black));
+	Plot1(firedCounter, !("KBB"), IFF(isSqueeze, White, Black));
 	SetPlotBGColor(4, diffColor);
 	SetPlotBGColor(1, kbbColor);
 	SetPlotColor(2, Black);
